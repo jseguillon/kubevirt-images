@@ -1,0 +1,33 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - disk_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2009.qcow2
+            name: jseguillon/kubevirt-images:centos-7-x86_64-genericcloud-2009
+
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Build the Docker image
+      run: docker build --build-arg DISK_IMAGE_URL=${{ matrix.disk_url }} . --file Dockerfile --tag ${{ matrix.name }}
+
+    - name: login docker hub
+      run: echo $DOCKER_CONFIG > ~/.docker/config.json
+      env:
+        DOCKER_CONFIG: ${{secrets.DOCKER_CONFIG}} 
+
+    - name: push 
+      run: docker push ${{ matrix.name }}
