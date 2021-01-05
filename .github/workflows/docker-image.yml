@@ -17,6 +17,10 @@ jobs:
         include:
           - disk_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2009.qcow2
             name: jseguillon/kubevirt-images:centos-7-x86_64-genericcloud-2009
+          - disk_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2003.qcow2
+            name: jseguillon/kubevirt-images:CentOS-7-x86_64-GenericCloud-2003
+          - disk_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1907.qcow2
+            name: jseguillon/kubevirt-images:CentOS-7-x86_64-GenericCloud-1907                       
 
     steps:
     - uses: actions/checkout@v2
