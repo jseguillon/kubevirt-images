@@ -28,10 +28,13 @@ jobs:
     - name: Build the Docker image
       run: docker build --build-arg DISK_IMAGE_URL=${{ matrix.disk_url }} . --file Dockerfile --tag ${{ matrix.name }}
 
-    - name: login docker hub
+    - name: dump credentials
       run: echo $DOCKER_CONFIG > ~/.docker/config.json
       env:
         DOCKER_CONFIG: ${{secrets.DOCKER_CONFIG}} 
 
-    - name: push 
+    - name: push #FIXME : no push if branch
       run: docker push ${{ matrix.name }}
+
+    - name: tag and push to quay.io
+      run: docker tag ${{ matrix.name }} quay.io/${{ matrix.name }} && docker push quay.io/${{ matrix.name }}
