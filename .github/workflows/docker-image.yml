@@ -36,5 +36,5 @@ jobs:
     - name: push #FIXME : no push if branch
       run: docker push ${{ matrix.name }}
 
-    - name: tag and push to quay
+    - name: tag and push to quay.io
       run: docker tag ${{ matrix.name }} quay.io/${{ matrix.name }} && docker push quay.io/${{ matrix.name }}
