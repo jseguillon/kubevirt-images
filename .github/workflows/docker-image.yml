@@ -20,7 +20,9 @@ jobs:
           - disk_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2003.qcow2
             name: jseguillon/kubevirt-images:CentOS-7-x86_64-GenericCloud-2003
           - disk_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1907.qcow2
-            name: jseguillon/kubevirt-images:CentOS-7-x86_64-GenericCloud-1907                       
+            name: jseguillon/kubevirt-images:CentOS-7-x86_64-GenericCloud-1907   
+          - disk_url: https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
+            name: jseguillon/kubevirt-images:focal-server-cloudimg-amd64
 
     steps:
     - uses: actions/checkout@v2
