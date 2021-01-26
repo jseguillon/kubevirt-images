@@ -17,18 +17,21 @@ jobs:
         include:
           - disk_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2009.qcow2
             name: jseguillon/kubevirt-images:centos-7-x86_64-genericcloud-2009
+            checksum_url: https://cloud.centos.org/centos/7/images/sha256sum.txt
           - disk_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-2003.qcow2
             name: jseguillon/kubevirt-images:CentOS-7-x86_64-GenericCloud-2003
+            checksum_url: https://cloud.centos.org/centos/7/images/sha256sum.txt
           - disk_url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1907.qcow2
-            name: jseguillon/kubevirt-images:CentOS-7-x86_64-GenericCloud-1907   
+            name: jseguillon/kubevirt-images:CentOS-7-x86_64-GenericCloud-1907
+            checksum_url: https://cloud.centos.org/centos/7/images/sha256sum.txt
           - disk_url: https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img
             name: jseguillon/kubevirt-images:focal-server-cloudimg-amd64
-
+            checksum_url: https://cloud-images.ubuntu.com/focal/current/SHA256SUMS
     steps:
     - uses: actions/checkout@v2
     
     - name: Build the Docker image
-      run: docker build --build-arg DISK_IMAGE_URL=${{ matrix.disk_url }} . --file Dockerfile --tag ${{ matrix.name }}
+      run: docker build --build-arg DISK_IMAGE_URL=${{ matrix.disk_url }} --build-arg CHECKSUM_URL=${{ matrix.checksum_url }} . --file Dockerfile --tag ${{ matrix.name }}
 
     - name: dump credentials
       run: echo $DOCKER_CONFIG > ~/.docker/config.json
